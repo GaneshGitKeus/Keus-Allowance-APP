@@ -11,8 +11,13 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
+const corsOptions = {
+  origin: "http://localhost:3000", // Replace with your frontend URL in production
+  credentials: true, // Allow cookies
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
