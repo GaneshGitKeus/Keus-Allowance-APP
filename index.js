@@ -77,7 +77,7 @@ app.post('/api/login', async (req, res) => {
     if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
-    res.cookie('token', token, { httpOnly: true, sameSite: 'none'});
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true });
     res.json({ message: 'Login successful', user });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -85,7 +85,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.post('/api/logout', (req, res) => {
-  res.clearCookie('token', { httpOnly: true, sameSite: 'none' });
+  res.clearCookie('token', { httpOnly: true, sameSite: 'none', secure: true, });
   res.json({ message: 'Logged out successfully' });
 });
 
