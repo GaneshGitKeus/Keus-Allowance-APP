@@ -12,7 +12,7 @@ const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 const corsOptions = {
-  origin: "http://localhost:3000", // Replace with your frontend URL in production
+  origin: "*", // Replace with your frontend URL in production
   credentials: true, // Allow cookies
 };
 
