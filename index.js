@@ -12,14 +12,17 @@ const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 const corsOptions = {
-  origin: "*", // Replace with your frontend URL in production
+  origin: ["*", "capacitor://localhost","ionic://localhost"],
   credentials: true, // Allow cookies
+  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
+  allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
 };
 
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.options("*", cors(corsOptions)); // Handle preflight requests
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
