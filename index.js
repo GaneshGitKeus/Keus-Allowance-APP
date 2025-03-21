@@ -12,25 +12,24 @@ const MONGO_URI = process.env.MONGO_URI;
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
 
 const corsOptions = {
-  origin: ["*", "capacitor://localhost","ionic://localhost"],
-  credentials: true, // Allow cookies
-  methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allow specific headers
+  origin: [
+    "http://localhost:3000", // React Web (local)
+    "capacitor://localhost", // Capacitor Mobile App
+    "ionic://localhost", // Ionic Mobile App
+    "https://yourfrontend.com" // Deployed frontend (Replace with actual URL)
+  ],
+  credentials: true, // Allow cookies/auth headers
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // Middleware
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
-app.options("*", cors(corsOptions)); // Handle preflight requests
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
 
+// Ensure OPTIONS requests are handled
+app.options("*", cors(corsOptions));
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
