@@ -57,6 +57,8 @@ const UserSchema = new mongoose.Schema({
       amount: Number,
       persons: Number,
       team: String,
+      otherPurpose: String,
+      otherAmount: Number
     }
   ]
 });
@@ -176,7 +178,9 @@ app.post('/api/expense', async (req, res) => {
       restaurant: req.body.restaurant,
       amount: req.body.amount,
       persons: req.body.persons,
-      team: req.body.team
+      team: req.body.team,
+      otherPurpose: req.body.otherPurpose,
+      otherAmount: req.body.otherAmount
     };
 
     user.expenses.push(newExpense);
