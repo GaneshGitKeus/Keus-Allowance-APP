@@ -57,6 +57,8 @@ const UserSchema = new mongoose.Schema({
       amount: Number,
       persons: Number,
       team: String,
+      otherPurpose: String,
+      otherAmount: Number
     }
   ]
 });
@@ -79,14 +81,19 @@ app.post('/api/register', async (req, res) => {
 // Login
 app.post('/api/login', async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    const { emailOrEmpid, password } = req.body;
+
+    const user = await User.findOne({
+      $or: [{ email: emailOrEmpid }, { empid: emailOrEmpid }]
+    });
+
     if (!user) return res.status(400).json({ error: 'User not found' });
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
     res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true });
     res.json({ message: 'Login successful', user });
   } catch (err) {
@@ -113,6 +120,36 @@ app.get('/api/user', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+app.put('/api/user/change-password', async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ error: 'Unauthorized' });
+
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const user = await User.findById(decoded.userId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const { oldPassword, newPassword } = req.body;
+    console.log(oldPassword, newPassword);
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ error: 'Old and new passwords are required' });
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) return res.status(400).json({ error: 'Old password is incorrect' });
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedNewPassword;
+    await user.save();
+
+    res.json({ message: 'Password updated successfully' });
+  } catch (err) {
+    console.error('Password change error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 
 app.get("/api/expense/:userId/:expenseId", async (req, res) => {
   try {
@@ -176,7 +213,9 @@ app.post('/api/expense', async (req, res) => {
       restaurant: req.body.restaurant,
       amount: req.body.amount,
       persons: req.body.persons,
-      team: req.body.team
+      team: req.body.team,
+      otherPurpose: req.body.otherPurpose,
+      otherAmount: req.body.otherAmount
     };
 
     user.expenses.push(newExpense);
@@ -223,6 +262,33 @@ app.put("/api/expense/food/:id", async (req, res) => {
           "expenses.$.amount": req.body.amount || 0,
           "expenses.$.persons": req.body.persons || 0,
           "expenses.$.team": req.body.team || ""
+        }
+      },
+      { new: true }
+    );
+
+    if (!updatedExpense) {
+      return res.status(404).json({ error: "Food expense not found" });
+    }
+
+    res.json(updatedExpense);
+  } catch (err) {
+    console.error("Error updating food expense:", err);
+    res.status(500).json({ error: "Error updating food expense" });
+  }
+});
+
+
+app.put("/api/expense/otherexpense/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const updatedExpense = await User.findOneAndUpdate(
+      { "expenses._id": id },
+      {
+        $set: {
+          "expenses.$.otherPurpose": "",
+          "expenses.$.otherAmount": 0
         }
       },
       { new: true }
