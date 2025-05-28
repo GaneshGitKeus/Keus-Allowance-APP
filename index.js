@@ -110,7 +110,10 @@ app.post('/api/logout', (req, res) => {
 // Get User Data
 app.get('/api/user', async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token =
+      req.cookies.token ||
+      req.headers.authorization?.split(" ")[1]; // ✅ support header
+
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
     const decoded = jwt.verify(token, JWT_SECRET);
@@ -121,6 +124,10 @@ app.get('/api/user', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3a3065d (Background Login)
 app.put('/api/user/change-password', async (req, res) => {
   try {
     const token = req.cookies.token;
