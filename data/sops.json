@@ -1,0 +1,211 @@
+[
+  {
+    "product": "Automation",
+    "productList": [
+      {
+        "productName": "Coolmaster (HVAC)",
+        "productId": "HVAC",
+        "sops": [
+          {
+            "title": "Installation Guide",
+            "type": "document",
+            "url": "https://drive.google.com/file/d/1VDb22nCK7R8kQMUg8s9j8h-jEwbxnnZp/view?usp=drive_link"
+          }
+        ]
+      },
+      {
+        "productName": "Smart Console",
+        "productId": "SC",
+        "sops": [
+          {
+            "title": "User Manual",
+            "type": "document",
+            "url": "https://drive.google.com/manual-link"
+          }
+        ]
+      },
+      {
+        "productName": "Zigbee Drivers",
+        "productId": "ZB",
+        "sops": []
+      },
+      {
+        "productName": "Dali Drivers",
+        "productId": "DALI",
+        "sops": []
+      },
+      {
+        "productName": "Relay Curtains",
+        "productId": "RC",
+        "sops": []
+      },
+      {
+        "productName": "Slider Curtains",
+        "productId": "SCUR",
+        "sops": []
+      },
+      {
+        "productName": "Curtains",
+        "productId": "CUR",
+        "sops": []
+      },
+      {
+        "productName": "Curtain Wizard",
+        "productId": "CWIZ",
+        "sops": []
+      },
+      {
+        "productName": "IR Blasters",
+        "productId": "IRB",
+        "sops": []
+      },
+      {
+        "productName": "Contact Sensors",
+        "productId": "CS",
+        "sops": []
+      },
+      {
+        "productName": "Embedded Switches",
+        "productId": "ESW",
+        "sops": []
+      },
+      {
+        "productName": "Scene Wizard",
+        "productId": "SWIZ",
+        "sops": []
+      },
+      {
+        "productName": "Scene Switches",
+        "productId": "SSW",
+        "sops": []
+      },
+      {
+        "productName": "RGBWWA Drivers",
+        "productId": "RGB",
+        "sops": []
+      },
+      {
+        "productName": "Fans (AC)",
+        "productId": "FAC",
+        "sops": []
+      },
+      {
+        "productName": "Fans (DC)",
+        "productId": "FDC",
+        "sops": []
+      },
+      {
+        "productName": "RF Fan",
+        "productId": "RFF",
+        "sops": []
+      },
+      {
+        "productName": "Zigbee Extenders",
+        "productId": "ZEXT",
+        "sops": []
+      },
+      {
+        "productName": "CV3 Channels",
+        "productId": "CV3",
+        "sops": []
+      },
+      {
+        "productName": "CV6 Channels",
+        "productId": "CV6",
+        "sops": []
+      },
+      {
+        "productName": "Gates",
+        "productId": "GATE",
+        "sops": []
+      },
+      {
+        "productName": "CV Addressable",
+        "productId": "CVA",
+        "sops": []
+      }
+    ]
+  },
+  {
+    "product": "Deepmedia",
+    "productList": [
+      {
+        "productName": "Samsung TV",
+        "productId": "SMSNG",
+        "sops": [
+          {
+            "title": "TV Setings Video",
+            "type": "Video",
+            "url": "https://drive.google.com/drive/folders/1kyO4P7LUqWCcxjzVkGkQG6d8bnCOzKQ1?usp=drive_link"
+          }
+         
+        ]
+      },
+      {
+        "productName": "Benq Projector",
+        "productId": "prodE",
+        "sops": [
+          {
+            "title": "User Manual",
+            "type": "document",
+            "url": "https://drive.google.com/manual-link"
+          }
+        ]
+      },
+      {
+        "productName": "Sony Projector",
+        "productId": "prodF",
+        "sops": [
+          {
+            "title": "User Manual",
+            "type": "document",
+            "url": "https://drive.google.com/manual-link"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "product": "Access Control",
+    "productList": [
+      {
+        "productName": "Product G",
+        "productId": "prodG",
+        "sops": [
+          {
+            "title": "Installation Guide",
+            "type": "document",
+            "url": "https://drive.google.com/doc-link"
+          },
+          {
+            "title": "Demo Video",
+            "type": "video",
+            "url": "https://drive.google.com/video-link"
+          }
+        ]
+      },
+      {
+        "productName": "Product H",
+        "productId": "prodH",
+        "sops": [
+          {
+            "title": "User Manual",
+            "type": "document",
+            "url": "https://drive.google.com/manual-link"
+          }
+        ]
+      },
+      {
+        "productName": "Product I",
+        "productId": "prodI",
+        "sops": [
+          {
+            "title": "User Manual",
+            "type": "document",
+            "url": "https://drive.google.com/manual-link"
+          }
+        ]
+      }
+    ]
+  }
+]
