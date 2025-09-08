@@ -96,7 +96,7 @@ app.post('/api/login', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ error: 'Invalid credentials' });
 
-    const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
     res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: true });
     res.json({ message: 'Login successful', user });
@@ -117,7 +117,6 @@ app.get('/api/user', async (req, res) => {
     const token =
       req.cookies.token ||
       req.headers.authorization?.split(" ")[1]; // ✅ support header
-
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
     const decoded = jwt.verify(token, JWT_SECRET);
