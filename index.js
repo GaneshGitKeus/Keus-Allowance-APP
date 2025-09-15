@@ -114,10 +114,9 @@ app.post('/api/logout', (req, res) => {
 // Get User Data
 app.get('/api/user', async (req, res) => {
   try {
-    const token = req.body.token || req.cookies.token ||
+    const token = req.cookies.token ||  
       req.headers.authorization?.split(" ")[1]; // ✅ support header
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
-
     const decoded = jwt.verify(token, JWT_SECRET);
     const user = await User.findById(decoded.userId);
     res.json(user);
@@ -128,7 +127,7 @@ app.get('/api/user', async (req, res) => {
 
 app.put('/api/user/change-password', async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
     const decoded = jwt.verify(token, JWT_SECRET);
@@ -180,7 +179,7 @@ app.get("/api/expense/:userId/:expenseId", async (req, res) => {
 // **Update User Data**
 app.put('/api/user/update', async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
     const decoded = jwt.verify(token, JWT_SECRET);
@@ -201,7 +200,7 @@ app.put('/api/user/update', async (req, res) => {
 // Add Expense
 app.post('/api/expense', async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
     const decoded = jwt.verify(token, JWT_SECRET);
@@ -235,7 +234,7 @@ app.post('/api/expense', async (req, res) => {
 // Edit Expense
 app.put('/api/expense/:expenseId', async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
     if (!token) return res.status(401).json({ error: 'Unauthorized' });
 
     const decoded = jwt.verify(token, JWT_SECRET);
